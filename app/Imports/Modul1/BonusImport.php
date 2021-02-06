@@ -19,16 +19,16 @@ class BonusImport implements ToCollection, WithHeadingRow
     {
         /* Query dari mst_component*/
         $query = DB::table('mst_komponen')
-                ->whereRaw('length(acc_code) = ?', [5])
+                ->whereRaw('length(acc_code) = 5')
                 ->whereNotNull('code')
                 ->orderBy('acc_code')
-                ->get()->ToArray();
+                ->get()->toArray();
 
         $data_komponen = collect($query)->map(function($x){
              return (array) $x;
         })->keyBy('code')->toArray();
 
-        dump($data_komponen);
+        //dump($data_komponen);
 
 
 
@@ -59,7 +59,7 @@ class BonusImport implements ToCollection, WithHeadingRow
 
         }
 
-        dump($data);
+        //dump($data);
 
 
     }

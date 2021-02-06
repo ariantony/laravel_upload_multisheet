@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CollectionImportController;
 use App\Http\Controllers\ExcelImportController;
+use App\Http\Controllers\TanggalController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\UsersImportController;
 use Illuminate\Http\Request;
@@ -30,3 +31,5 @@ Route::post('/users/import',[UsersImportController::class,'store']);
 Route::post('/collection',[ExcelImportController::class,'excel']);
 Route::post('/koleksi',[ExcelImportController::class,'ImportExcel']);
 Route::get('/kol',[ExcelImportController::class,'TestCollection']);
+
+Route::get('/tanggal',[TanggalController::class,'index']);
