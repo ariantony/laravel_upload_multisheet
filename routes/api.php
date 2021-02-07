@@ -33,3 +33,4 @@ Route::post('/koleksi',[ExcelImportController::class,'ImportExcel']);
 Route::get('/kol',[ExcelImportController::class,'TestCollection']);
 
 Route::get('/tanggal',[TanggalController::class,'index']);
+Route::post('/date',[TanggalController::class,'ImportExcel']);
