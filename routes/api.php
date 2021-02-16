@@ -5,6 +5,7 @@ use App\Http\Controllers\ExcelImportController;
 use App\Http\Controllers\ExportUserController;
 use App\Http\Controllers\KomponenGajiController;
 use App\Http\Controllers\TanggalController;
+use App\Http\Controllers\TemplateController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\UsersImportController;
 use Illuminate\Http\Request;
@@ -43,3 +44,5 @@ Route::post('/date',[TanggalController::class,'ImportExcel']);
 Route::get('/export',[ExportUserController::class,'index']);
 
 Route::get('/komponen-gaji',[KomponenGajiController::class,'index']);
+
+Route::get('/template',[TemplateController::class,'index']);
