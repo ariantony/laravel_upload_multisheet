@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\CollectionImportController;
 use App\Http\Controllers\ExcelImportController;
+use App\Http\Controllers\ExportUserController;
+use App\Http\Controllers\KomponenGajiController;
 use App\Http\Controllers\TanggalController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\UsersImportController;
@@ -23,7 +25,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/',[TestController::class,'index']);
+Route::get('/test',[TestController::class,'index']);
+Route::get('/test1',[TestController::class,'test']);
+Route::get('/test2',[TestController::class,'test2']);
+Route::get('/test3',[TestController::class,'test3']);
 
 // Route::get('/users/import',[UsersImportController::class],'show');
 Route::post('/users/import',[UsersImportController::class,'store']);
@@ -34,3 +39,7 @@ Route::get('/kol',[ExcelImportController::class,'TestCollection']);
 
 Route::get('/tanggal',[TanggalController::class,'index']);
 Route::post('/date',[TanggalController::class,'ImportExcel']);
+
+Route::get('/export',[ExportUserController::class,'index']);
+
+Route::get('/komponen-gaji',[KomponenGajiController::class,'index']);

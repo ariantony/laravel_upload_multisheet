@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\UsersExport;
 use Illuminate\Http\Request;
-use App\Exports\KomponenGajiExports;
-use Maatwebsite\Excel\Excel;
+use Maatwebsite\Excel\Facades\Excel;
 
-class KomponenGajiController extends Controller
+class ExportUserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,10 +15,7 @@ class KomponenGajiController extends Controller
      */
     public function index()
     {
-
-        $name_file = now()->format('Ymd-His');
-
-        return (new KomponenGajiExports)->download('Komponen-'. $name_file .'.xlsx', Excel::XLSX);
+        return Excel::download(new UsersExport, 'users.xlsx');
     }
 
     /**

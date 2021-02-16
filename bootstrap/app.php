@@ -52,4 +52,18 @@ $app->singleton(
 |
 */
 
+if(isset($_SERVER['HTTP_HOST']) && !empty($_SERVER['HTTP_HOST'])){
+
+    $domain = $_SERVER['HTTP_HOST'];
+
+    if (isset($domain)) {
+        $dotenv = Dotenv\Dotenv::createImmutable(base_path('client'), '.env.'.$domain);
+        try {
+            $dotenv->load();
+        } catch (\Dotenv\Exception\InvalidPathException $e) {
+            // No custom .env file found for this domain
+        }
+    }
+}
+
 return $app;
