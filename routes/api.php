@@ -46,3 +46,4 @@ Route::get('/export',[ExportUserController::class,'index']);
 Route::get('/komponen-gaji',[KomponenGajiController::class,'index']);
 
 Route::get('/template',[TemplateController::class,'index']);
+Route::get('/column',[TemplateController::class,'columnLetter']);

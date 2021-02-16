@@ -13,6 +13,9 @@ class TemplateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
+
     public function index()
     {
         $name_file = now()->format('Ymd-His');

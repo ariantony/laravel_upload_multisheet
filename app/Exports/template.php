@@ -6,8 +6,9 @@ use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\FromArray;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use Maatwebsite\Excel\Concerns\WithEvents;
 
-class template implements FromArray, ShouldAutoSize
+class template implements FromArray, ShouldAutoSize, WithEvents
 {
     /**
     * @return \Illuminate\Support\Collection
@@ -32,11 +33,13 @@ class template implements FromArray, ShouldAutoSize
             ->orderBy('acc_code')
             ->get()->toArray();
 
-        dd($komponen);
+
 
         $dbkomponen = collect($komponen)->map(function($x){
             return (array) $x;
         })->toArray();
+
+        $c = count($dbkomponen);
 
         //dd($dbkomponen);
 
@@ -70,6 +73,46 @@ class template implements FromArray, ShouldAutoSize
         }
 
         //return $hasil;
+
+    }
+
+    public function columnLetter($c){
+
+        $c = intval($c);
+
+        if ($c <= 0) {
+            return '';
+        }
+
+        $letter = '';
+
+        while($c != 0){
+           $p = ($c - 1) % 26;
+           $c = intval(($c - $p) / 26);
+           $letter = chr(65 + $p) . $letter;
+        }
+
+        return $letter;
+
+    }
+
+    public function registerEvents(): array
+    {
+        return [
+            AfterSheet::class => function (AfterSheet $event) {
+                $event->sheet->getStyle('A1:' . columnLetter() .'')->applyFromArray([
+                    'font' => [
+                        'bold' => true
+                    ],
+                    'fill' => [
+                        'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                        'startColor' => [
+                            'argb' => 'FFA0A0A0',
+                        ]
+                    ],
+                ]);
+            }
+        ];
 
     }
 }
