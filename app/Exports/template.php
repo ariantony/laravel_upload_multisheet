@@ -3,16 +3,20 @@
 namespace App\Exports;
 
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Events\AfterSheet;
 use Maatwebsite\Excel\Concerns\FromArray;
 use Maatwebsite\Excel\Concerns\Exportable;
-use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithEvents;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
 class template implements FromArray, ShouldAutoSize, WithEvents
 {
     /**
     * @return \Illuminate\Support\Collection
     */
+
+	var $setColumn = 0;
+
     use Exportable;
 
     public function array(): array
@@ -39,7 +43,7 @@ class template implements FromArray, ShouldAutoSize, WithEvents
             return (array) $x;
         })->toArray();
 
-        $c = count($dbkomponen);
+        $this->setColumn = count($dbkomponen);
 
         //dd($dbkomponen);
 
@@ -72,7 +76,7 @@ class template implements FromArray, ShouldAutoSize, WithEvents
             $key++;
         }
 
-        //return $hasil;
+        return $hasil;
 
     }
 
@@ -100,7 +104,7 @@ class template implements FromArray, ShouldAutoSize, WithEvents
     {
         return [
             AfterSheet::class => function (AfterSheet $event) {
-                $event->sheet->getStyle('A1:' . columnLetter() .'')->applyFromArray([
+                $event->sheet->getStyle('A1:Z1')->applyFromArray([
                     'font' => [
                         'bold' => true
                     ],
