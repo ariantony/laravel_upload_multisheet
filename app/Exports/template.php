@@ -16,7 +16,6 @@ class template implements FromArray, ShouldAutoSize, WithEvents
     */
 
 	var $setColumn = 0;
-
     use Exportable;
 
     public function array(): array
@@ -45,9 +44,6 @@ class template implements FromArray, ShouldAutoSize, WithEvents
 
         $this->setColumn = count($dbkomponen);
 
-        //dd($dbkomponen);
-
-        //dd($dbkomponen);
         $no = 0;
         foreach($dbhr as $x=>$y) {
             $no++;
@@ -78,12 +74,12 @@ class template implements FromArray, ShouldAutoSize, WithEvents
 
         return $hasil;
 
+
     }
 
-    public function columnLetter($c){
+    public function columnLetter($c=0){
 
         $c = intval($c);
-
         if ($c <= 0) {
             return '';
         }
@@ -100,11 +96,13 @@ class template implements FromArray, ShouldAutoSize, WithEvents
 
     }
 
+
     public function registerEvents(): array
     {
         return [
             AfterSheet::class => function (AfterSheet $event) {
-                $event->sheet->getStyle('A1:Z1')->applyFromArray([
+                $column = $this->columnLetter($this->setColumn + 3);
+                $event->sheet->getStyle('A1:' . $column.'2')->applyFromArray([
                     'font' => [
                         'bold' => true
                     ],
